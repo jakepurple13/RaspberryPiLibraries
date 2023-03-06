@@ -33,7 +33,6 @@ internal fun <T, R> BluetoothDiscoveryScreen(
     getNetworks: () -> Unit,
     ssid: (R?) -> String,
     signalStrength: (R?) -> Int,
-    actions: @Composable RowScope.() -> Unit = {},
     onBackPress: () -> Unit = {},
     pleaseWait: String = "Please Wait...",
     connect: String = "Connect",
@@ -68,7 +67,6 @@ internal fun <T, R> BluetoothDiscoveryScreen(
                 name = deviceName,
                 isSelected = isDeviceSelected,
                 identifier = deviceIdentifier,
-                actions = actions,
                 onBackPress = onBackPress,
                 findDevice = findDevice,
                 connect = connect
@@ -122,7 +120,6 @@ private fun <T> BluetoothSearching(
     isSelected: (found: T?, selected: T?) -> Boolean,
     isConnecting: Boolean,
     connectOverBle: () -> Unit,
-    actions: @Composable RowScope.() -> Unit = {},
     onBackPress: () -> Unit = {},
     findDevice: String,
     connect: String
@@ -132,7 +129,6 @@ private fun <T> BluetoothSearching(
             TopAppBar(
                 title = { Text(findDevice) },
                 navigationIcon = { IconButton(onClick = onBackPress) { Icon(Icons.Default.ArrowBack, null) } },
-                actions = actions
             )
         },
         bottomBar = {

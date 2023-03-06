@@ -39,20 +39,7 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 public actual fun BluetoothDiscovery(
     onBackPress: () -> Unit,
     onConnect: () -> Unit,
-    wifiSetupText: String,
-    permissionText: String,
-    permissionSecondaryText: String,
-    enableText: String,
-    pleaseWait: String,
-    connect: String,
-    findDevice: String,
-    connectDeviceToWiFi: String,
-    refreshNetworks: String,
-    ssidText: String,
-    password: String,
-    releaseToRefresh: String,
-    refreshing: String,
-    pullToRefresh: String
+    connectivityLocalization: ConnectivityLocalization
 ) {
     PermissionRequest(
         listOf(
@@ -77,10 +64,10 @@ public actual fun BluetoothDiscovery(
             }.toTypedArray(),
         ),
         onBackPress = onBackPress,
-        wifiSetupText = wifiSetupText,
-        permissionText = permissionText,
-        permissionSecondaryText = permissionSecondaryText,
-        enableText = enableText
+        wifiSetupText = connectivityLocalization.wifiSetupText,
+        permissionText = connectivityLocalization.permissionText,
+        permissionSecondaryText = connectivityLocalization.permissionSecondaryText,
+        enableText = connectivityLocalization.enableText
     ) {
         val vm = viewModel { BluetoothViewModel(onConnect) }
         BluetoothDiscoveryScreen(
@@ -101,16 +88,16 @@ public actual fun BluetoothDiscovery(
             signalStrength = { it?.s ?: 0 },
             connectOverBle = vm::connect,
             onBackPress = onBackPress,
-            pleaseWait = pleaseWait,
-            connect = connect,
-            connectDeviceToWiFi = connectDeviceToWiFi,
-            refreshNetworks = refreshNetworks,
-            ssidText = ssidText,
-            password = password,
-            releaseToRefresh = releaseToRefresh,
-            refreshing = refreshing,
-            pullToRefresh = pullToRefresh,
-            findDevice = findDevice,
+            pleaseWait = connectivityLocalization.pleaseWait,
+            connect = connectivityLocalization.connect,
+            connectDeviceToWiFi = connectivityLocalization.connectDeviceToWiFi,
+            refreshNetworks = connectivityLocalization.refreshNetworks,
+            ssidText = connectivityLocalization.ssidText,
+            password = connectivityLocalization.password,
+            releaseToRefresh = connectivityLocalization.releaseToRefresh,
+            refreshing = connectivityLocalization.refreshing,
+            pullToRefresh = connectivityLocalization.pullToRefresh,
+            findDevice = connectivityLocalization.findDevice,
         )
     }
 }

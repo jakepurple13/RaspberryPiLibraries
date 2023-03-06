@@ -8,5 +8,5 @@ public actual fun BluetoothDiscovery(
     onConnect: () -> Unit,
     connectivityLocalization: ConnectivityLocalization
 ) {
-    error("Desktop is not supported")
+    error("Web is not supported")
 }

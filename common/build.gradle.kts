@@ -7,19 +7,32 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.programmersbox"
-version = "1.0-SNAPSHOT"
+val versionNumber = "1.0.11"
+
+group = "com.programmersbox.PiLibraries"
+version = versionNumber
 
 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 kotlin {
     android {
+        compilations.all {
+            kotlinOptions.jvmTarget = "11"
+        }
         publishAllLibraryVariants()
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
+        }
     }
     jvm("desktop")
     ios()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    js(IR) {
+        browser()
+    }
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -45,11 +58,11 @@ kotlin {
             }
         }
 
-        val commonTest by getting {
+        /*val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
             }
-        }
+        }*/
 
         val androidMain by getting {
             dependencies {
@@ -62,11 +75,11 @@ kotlin {
             }
         }
 
-        val androidTest by getting {
+        /*val androidTest by getting {
             dependencies {
                 implementation("junit:junit:4.13.2")
             }
-        }
+        }*/
 
         val desktopMain by getting {
             dependencies {
@@ -75,7 +88,13 @@ kotlin {
             }
         }
 
-        val desktopTest by getting
+        //val desktopTest by getting
+
+        val jsMain by getting {
+            dependencies {
+                api(compose.web.core)
+            }
+        }
 
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -104,6 +123,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 publishing {
@@ -113,17 +138,17 @@ publishing {
             // You can then customize attributes of the publication as shown below.
             groupId = "com.github.jakepurple13"
             artifactId = "pimodules"
-            version = "1.0.0"
+            version = versionNumber
             afterEvaluate { from(components["release"]) }
         }
     }
     repositories {
         maven {
-            name = "GitHubPackages"
+            name = "RaspberryPiLibraries"
             url = uri("https://maven.pkg.github.com/jakepurple13/RaspberryPiLibraries")
             credentials {
-                username = System.getenv("USERNAME") ?: ""
-                password = System.getenv("TOKEN") ?: ""
+                username = System.getenv("USERNAME") ?: "jakepurple13"
+                password = System.getenv("TOKEN")
             }
         }
     }

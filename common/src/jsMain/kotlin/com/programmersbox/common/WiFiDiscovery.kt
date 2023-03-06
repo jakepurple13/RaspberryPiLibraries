@@ -10,7 +10,7 @@ public actual fun WiFiDiscoveryScreen(
     connectivityLocalization: ConnectivityLocalization
 ) {
     DiscoverWiFiScreen(
-        discoverAction,
+        { _, _ -> },
         onConnect,
         openBLEDiscovery,
         onBackPress,

@@ -8,20 +8,7 @@ import androidx.compose.runtime.remember
 public actual fun BluetoothDiscovery(
     onBackPress: () -> Unit,
     onConnect: () -> Unit,
-    wifiSetupText: String,
-    permissionText: String,
-    permissionSecondaryText: String,
-    enableText: String,
-    pleaseWait: String,
-    connect: String,
-    findDevice: String,
-    connectDeviceToWiFi: String,
-    refreshNetworks: String,
-    ssidText: String,
-    password: String,
-    releaseToRefresh: String,
-    refreshing: String,
-    pullToRefresh: String
+    connectivityLocalization: ConnectivityLocalization
 ) {
     val vm = remember { BluetoothViewModel(onConnect) }
     DisposableEffect(Unit) { onDispose { vm.disconnect() } }
@@ -43,15 +30,15 @@ public actual fun BluetoothDiscovery(
         signalStrength = { it?.s ?: 0 },
         connectOverBle = vm::connect,
         onBackPress = onBackPress,
-        pleaseWait = pleaseWait,
-        connect = connect,
-        connectDeviceToWiFi = connectDeviceToWiFi,
-        refreshNetworks = refreshNetworks,
-        ssidText = ssidText,
-        password = password,
-        releaseToRefresh = releaseToRefresh,
-        refreshing = refreshing,
-        pullToRefresh = pullToRefresh,
-        findDevice = findDevice,
+        pleaseWait = connectivityLocalization.pleaseWait,
+        connect = connectivityLocalization.connect,
+        connectDeviceToWiFi = connectivityLocalization.connectDeviceToWiFi,
+        refreshNetworks = connectivityLocalization.refreshNetworks,
+        ssidText = connectivityLocalization.ssidText,
+        password = connectivityLocalization.password,
+        releaseToRefresh = connectivityLocalization.releaseToRefresh,
+        refreshing = connectivityLocalization.refreshing,
+        pullToRefresh = connectivityLocalization.pullToRefresh,
+        findDevice = connectivityLocalization.findDevice,
     )
 }

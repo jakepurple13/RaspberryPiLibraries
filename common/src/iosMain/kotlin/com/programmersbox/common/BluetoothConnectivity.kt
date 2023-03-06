@@ -97,9 +97,13 @@ internal class BluetoothViewModel(
                 .onEach {
                     println("Command!")
                     val value = it.removeSuffix("\n")
-                    val command = json.decodeFromString<SingleCommand>(value)
+                    val command: SingleCommand? = try {
+                        json.decodeFromString<SingleCommand>(value)
+                    } catch (e: Exception) {
+                        null
+                    }
                     println(command)
-                    when (command.c) {
+                    when (command?.c) {
                         0 -> {
                             wifiNetworks.clear()
                             wifiNetworks.addAll(json.decodeFromString<WifiList>(value).p)

@@ -43,3 +43,5 @@ public fun MainViewController(): UIViewController = Application("My Application"
 }
 
 internal actual val hasBLEDiscovery: Boolean = true
+
+public var discoverAction: (MutableList<DeviceIp>, isSearching: (Boolean) -> Unit) -> Unit = { _, _ -> }

@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun DiscoveryScreen(
+internal fun DiscoverWiFiScreen(
     discover: (MutableList<DeviceIp>, isSearching: (Boolean) -> Unit) -> Unit,
     onConnect: (url: String) -> Unit,
     openBLEDiscovery: () -> Unit,
@@ -30,9 +30,7 @@ internal fun DiscoveryScreen(
     discoverText: String = "Discover",
     manualIPText: String = "Manual IP"
 ) {
-    val vm = remember {
-        DiscoveryViewModel(discover, onConnect)
-    }
+    val vm = remember { DiscoveryViewModel(discover, onConnect) }
     var ip by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) { vm.startDiscovery() }

@@ -3,10 +3,9 @@ package com.programmersbox.common
 import androidx.compose.runtime.Composable
 
 @Composable
-public actual fun BluetoothDiscovery(
+public expect fun WiFiDiscoveryScreen(
+    onConnect: (url: String) -> Unit,
+    openBLEDiscovery: () -> Unit,
     onBackPress: () -> Unit,
-    onConnect: () -> Unit,
     connectivityLocalization: ConnectivityLocalization
-) {
-    error("Desktop is not supported")
-}
+)

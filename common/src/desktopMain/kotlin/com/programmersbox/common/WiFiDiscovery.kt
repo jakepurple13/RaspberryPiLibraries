@@ -11,21 +11,14 @@ import javax.jmdns.ServiceEvent
 import javax.jmdns.ServiceListener
 
 @Composable
-public fun WiFiDiscoveryScreen(
+public actual fun WiFiDiscoveryScreen(
     onConnect: (url: String) -> Unit,
     openBLEDiscovery: () -> Unit,
     onBackPress: () -> Unit,
-    discoveryText: String = "Discovery",
-    releaseToRefresh: String = "Release to Refresh",
-    refreshing: String = "Refreshing",
-    pullToRefresh: String = "Pull to Refresh",
-    needToConnectDeviceToWiFiText: String = "Need to Connect Device to WiFi?",
-    enterIpAddressText: String = "Enter IP Address",
-    discoverText: String = "Discover",
-    manualIPText: String = "Manual IP"
+    connectivityLocalization: ConnectivityLocalization
 ) {
     val scope = rememberCoroutineScope()
-    DiscoveryScreen(
+    DiscoverWiFiScreen(
         discover = { list, isSearching ->
             isSearching(true)
             scope.launch(Dispatchers.IO) {
@@ -56,13 +49,13 @@ public fun WiFiDiscoveryScreen(
         onConnect,
         openBLEDiscovery,
         onBackPress,
-        discoveryText,
-        releaseToRefresh,
-        refreshing,
-        pullToRefresh,
-        needToConnectDeviceToWiFiText,
-        enterIpAddressText,
-        discoverText,
-        manualIPText
+        connectivityLocalization.discoveryText,
+        connectivityLocalization.releaseToRefresh,
+        connectivityLocalization.refreshing,
+        connectivityLocalization.pullToRefresh,
+        connectivityLocalization.needToConnectDeviceToWiFiText,
+        connectivityLocalization.enterIpAddressText,
+        connectivityLocalization.discoverText,
+        connectivityLocalization.manualIPText
     )
 }
